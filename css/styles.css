@@ -1,4 +1,4 @@
-
+/* Body Styles */
 html, body{
 	height: 100%;
 	width: 100%;
@@ -7,6 +7,13 @@ html, body{
 	overflow: hidden;
 }
 
+.container {
+	width: 100%;
+	height: 100%;
+}
+
+/* Navigation Bar Styles */
+
 nav {
 	background-color: #333333;
 	min-height: 50px;
@@ -14,7 +21,6 @@ nav {
 }
 
 .link {
-	margin-top: 7px;
 	margin-left: 10px;
 	padding: 0 5px;
  	display: inline-block;
@@ -31,10 +37,8 @@ nav {
 	border-color: #FFFFFF;
 }
 
-.container {
-	width: 100%;
-	height: 100%;
-}
+
+/* List Styles */
 
 #list {
 	float: left;
@@ -42,14 +46,6 @@ nav {
 	height: 100%;
 	background-color: #333333;
 	color: #F0F0F0;
-}
-
-.map-container {
-	height: 90%;
-}
-
-#map {
-	height: 100%;
 }
 
 #list-header {
@@ -64,22 +60,21 @@ nav {
 
 #list-header h3 {
 	margin: 0;
-	padding-top: 15px;
 }
 
-
-#list-item {
-	padding: 10px 5px;
+.list-item {
+	padding: 10px 0 10px 10px;
 	font-size: 13px;
 	width: 100%;
 	height: 100%;
-	text-align: center;
+	text-align: left;
 	text-decoration: none;
 	background-color: #333333;
 	color: #F0F0F0;
+	border: none;
 }
 
-#list-item:hover {
+.list-item:hover {
 	color: #FFFFFF;
 	background-color: #5b5a5a;
 }
@@ -92,12 +87,91 @@ nav {
 
 }
 
+#school-filter {
+	padding: 10px 15px 5px 10px;
+}
+
+#school-select {
+	width: 100%;
+}
+
+/* Map Styles */
 #info-window {
 	max-width: 330px;
 	max-height: 250px;
 
 }
 
+#map {
+	height: 100%;
+}
+
 #info-header {
 	text-align: center;
+}
+
+/* Media Styles */
+
+@media (min-height: 0px) {
+	nav {
+		height: 10%;
+	}
+
+	.link {
+		margin-top: 8px;
+	}
+
+	#list-header { 
+		height: 10%;
+	}
+
+	#list-header h3 {
+		padding-top: 15px;
+	}
+
+	.map-container {
+		height: 90%;
+	}
+}
+
+@media (min-height: 650px) {
+	nav {
+		height: 7%;
+	}
+
+	.link {
+		margin-top: 10px;
+	}
+
+	#list-header { 
+		height: 7%;
+	}
+
+
+	.map-container {
+		height: 93%;
+	}
+}
+
+@media (min-height: 900px) {
+	nav {
+		height: 8%;
+	}
+
+	#list-header { 
+		height: 8%;
+	}
+
+	#list-header h3 {
+		padding-top: 10%;
+	}
+
+	.link {
+		margin-top: 1%;
+	}
+
+	.map-container {
+		height: 92%;
+	}
+
 }
