@@ -110,6 +110,11 @@ nav {
 	text-align: center;
 }
 
+#attribution {
+	font-size: 10px;
+	font-style: italic;
+}
+
 /* Media Styles */
 
 @media (min-height: 0px) {

@@ -123,6 +123,7 @@ function getWiki(name) {
             for(var i = 0; i < 7; i++) {
             	collegeExtract += (sentences[i] + ".");
             }
+            collegeExtract += "<p id='attribution'>Content retrieved from Wikipedia. Text is available under the <a href='https://creativecommons.org/licenses/by-sa/3.0/'>Creative Commons Attribution-ShareAlike License</a>.</p>"
             def.resolve();
         }
 	}).fail(function(e) {
