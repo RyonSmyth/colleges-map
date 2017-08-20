@@ -1,15 +1,15 @@
 	// Array filled with an object for each college
 	var locations = [
-		{title: "USC", name: "University of Southern California", category: "private", location: {lat: 34.022352, lng: -118.285117}},
-		{title: "UCLA", name: "University of California, Los Angeles", category: "public", location: {lat: 34.068921, lng: -118.445181}},
-		{title: "Caltech", name: "California Institute of Technology", category: "private", location: {lat: 34.137658, lng: -118.125269}},
-		{title: "CSU Fullerton", name: "California State University, Fullerton", category: "public", location: {lat: 33.882923, lng: -117.886926}},
-		{title: "CSU Long Beach", name: "California State University, Long Beach", category: "public", location: {lat: 33.783824, lng:-118.11409}},
-		{title: "CSU Northridge", name: "California State University, Northridge", category: "public", location: {lat: 34.242595, lng: -118.528069}},
-		{title: "CSU Los Angeles", name: "California State University, Los Angeles", category: "public", location: {lat: 34.068191, lng: -118.169043}},
-		{title: "Cal Poly Pomona", name: "California State Polytechnic University, Pomona", category: "public", location: {lat: 34.056528, lng: -117.821529}},
-		{title: "Occidental College", name: "Occidental College", category: "private", location: {lat: 34.127362, lng: -118.210504}},
-		{title: "Loyola Marymount University", name: "Loyola Marymount University", category: "private", location: {lat: 33.969818, lng: -118.418497}}
+		{title: "USC", name: "University of Southern California", category: "Private Schools", location: {lat: 34.022352, lng: -118.285117}},
+		{title: "UCLA", name: "University of California, Los Angeles", category: "Public Schools", location: {lat: 34.068921, lng: -118.445181}},
+		{title: "Caltech", name: "California Institute of Technology", category: "Private Schools", location: {lat: 34.137658, lng: -118.125269}},
+		{title: "CSU Fullerton", name: "California State University, Fullerton", category: "Public Schools", location: {lat: 33.882923, lng: -117.886926}},
+		{title: "CSU Long Beach", name: "California State University, Long Beach", category: "Public Schools", location: {lat: 33.783824, lng:-118.11409}},
+		{title: "CSU Northridge", name: "California State University, Northridge", category: "Public Schools", location: {lat: 34.242595, lng: -118.528069}},
+		{title: "CSU Los Angeles", name: "California State University, Los Angeles", category: "Public Schools", location: {lat: 34.068191, lng: -118.169043}},
+		{title: "Cal Poly Pomona", name: "California State Polytechnic University, Pomona", category: "Public Schools", location: {lat: 34.056528, lng: -117.821529}},
+		{title: "Occidental College", name: "Occidental College", category: "Private Schools", location: {lat: 34.127362, lng: -118.210504}},
+		{title: "Loyola Marymount University", name: "Loyola Marymount University", category: "Private Schools", location: {lat: 33.969818, lng: -118.418497}}
 		
 	];
 
@@ -102,10 +102,6 @@ function getWiki(name) {
 	var def = $.Deferred();
 	collegeExtract = "";
 
-	var wikiRequestTimeout = setTimeout(function() {
-		collegeExtract = "Failed to load Wikipedia Extract";
-	}, 8000);
-
 	$.ajax( {
         url: wikiURL,
         dataType: "jsonp",
@@ -122,11 +118,13 @@ function getWiki(name) {
             for(var i = 0; i < 7; i++) {
             	collegeExtract += (sentences[i] + ".");
             }
-            
-            clearTimeout(wikiRequestTimeout);
             def.resolve();
         }
-	});
+	}).fail(function(e) {
+		collegeExtract = "Failed to load Wikipedia Extract";
+		def.resolve();
+
+    });
 	return def.promise();
 
 
@@ -159,40 +157,42 @@ var ViewModel = function() {
 	};
 
 
+	this.categories = ko.observableArray(["All Schools", "Public Schools", "Private Schools"]);
+	this.selectedCategory = ko.observable();
+	// Filters the list items/map markers
+	this.filterSchools = function() {
+		var selected = this.selectedCategory();
+
+		// Filters Map Markers
+		for(var i = 0; i < markers().length; i++) {
+
+			if(selected === "All Schools") {
+				markers()[i].setVisible(true);
+			} else if(markers()[i].category === selected) {
+				markers()[i].setVisible(true);
+			} else {
+				markers()[i].setVisible(false);
+			}
+		}
+
+		var listItem = document.getElementsByClassName("list-item");
+		// Fliters List Items
+		for(var j = 0; j < listItem.length; j++) {
+			if(selected === "All Schools") {
+				listItem[j].style.display = "inline";
+			} else if(listItem[j].value === selected) {
+				listItem[j].style.display = "inline";
+			} else {
+				listItem[j].style.display = "none";
+			}
+		}
+
+	};
+
+
 };
 
 ko.applyBindings(new ViewModel());
 
 
-// Filters the list items/map markers
-filterSchools = function() {
 
-	var selected = document.getElementById("school-select").selectedIndex;
-
-	selected = document.getElementsByTagName("option")[selected].value;
-
-	// Filters Map Markers
-	for(var i = 0; i < markers().length; i++) {
-
-		if(selected === "all") {
-			markers()[i].setVisible(true);
-		} else if(markers()[i].category == selected) {
-			markers()[i].setVisible(true);
-		} else {
-			markers()[i].setVisible(false);
-		}
-	}
-
-	var listItem = document.getElementsByClassName("list-item");
-	// Fliters List Items
-	for(var j = 0; j < listItem.length; j++) {
-		if(selected === "all") {
-			listItem[j].style.display = "inline";
-		} else if(listItem[j].value == selected) {
-			listItem[j].style.display = "inline";
-		} else {
-			listItem[j].style.display = "none";
-		}
-	}
-
-};

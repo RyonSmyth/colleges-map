@@ -22,10 +22,8 @@
             </div>
             <div id="school-filter">
                 <form onclick="return false">
-                    <select id="school-select" name="schools" onchange="filterSchools()">
-                      <option value="all">All Schools</option>
-                      <option value="public">Public Schools</option>
-                      <option value="private">Private Schools</option>
+                    <select id="school-select" name="schools" data-bind="options: categories,
+                         optionsCaption: 'Choose School Type', value: selectedCategory, event: {change: filterSchools}">
                     </select>
                 </form>
             </div>

@@ -10,4 +10,4 @@ To access the site for this repository visit https://ryonsmyth.github.io/college
 The site uses the Google Maps API to create a an interactive map with markers showing where colleges are located.
 
 ### Wikipedia
-The site uses the Wikipedia API to display an extract about the college in the info indow when a marker is selected. 
+The site uses the Wikipedia API to display an extract about the college in the info window when a marker is selected. 
