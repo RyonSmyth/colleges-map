@@ -188,7 +188,7 @@ filterSchools = function() {
 	for(var j = 0; j < listItem.length; j++) {
 		if(selected === "all") {
 			listItem[j].style.display = "inline";
-		} else if(listItem[i].value == selected) {
+		} else if(listItem[j].value == selected) {
 			listItem[j].style.display = "inline";
 		} else {
 			listItem[j].style.display = "none";
