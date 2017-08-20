@@ -1,20 +1,20 @@
-	// Array filled with an object for each college
-	var locations = [
-		{title: "USC", name: "University of Southern California", category: "Private Schools", location: {lat: 34.022352, lng: -118.285117}},
-		{title: "UCLA", name: "University of California, Los Angeles", category: "Public Schools", location: {lat: 34.068921, lng: -118.445181}},
-		{title: "Caltech", name: "California Institute of Technology", category: "Private Schools", location: {lat: 34.137658, lng: -118.125269}},
-		{title: "CSU Fullerton", name: "California State University, Fullerton", category: "Public Schools", location: {lat: 33.882923, lng: -117.886926}},
-		{title: "CSU Long Beach", name: "California State University, Long Beach", category: "Public Schools", location: {lat: 33.783824, lng:-118.11409}},
-		{title: "CSU Northridge", name: "California State University, Northridge", category: "Public Schools", location: {lat: 34.242595, lng: -118.528069}},
-		{title: "CSU Los Angeles", name: "California State University, Los Angeles", category: "Public Schools", location: {lat: 34.068191, lng: -118.169043}},
-		{title: "Cal Poly Pomona", name: "California State Polytechnic University, Pomona", category: "Public Schools", location: {lat: 34.056528, lng: -117.821529}},
-		{title: "Occidental College", name: "Occidental College", category: "Private Schools", location: {lat: 34.127362, lng: -118.210504}},
-		{title: "Loyola Marymount University", name: "Loyola Marymount University", category: "Private Schools", location: {lat: 33.969818, lng: -118.418497}}
-		
-	];
+// Array filled with an object for each college
+var locations = [
+	{title: "USC", name: "University of Southern California", category: "Private Schools", displaySchool: ko.observable(true), location: {lat: 34.022352, lng: -118.285117}},
+	{title: "UCLA", name: "University of California, Los Angeles", category: "Public Schools", displaySchool: ko.observable(true), location: {lat: 34.068921, lng: -118.445181}},
+	{title: "Caltech", name: "California Institute of Technology", category: "Private Schools", displaySchool: ko.observable(true), location: {lat: 34.137658, lng: -118.125269}},
+	{title: "CSU Fullerton", name: "California State University, Fullerton", category: "Public Schools", displaySchool: ko.observable(true), location: {lat: 33.882923, lng: -117.886926}},
+	{title: "CSU Long Beach", name: "California State University, Long Beach", category: "Public Schools", displaySchool: ko.observable(true), location: {lat: 33.783824, lng:-118.11409}},
+	{title: "CSU Northridge", name: "California State University, Northridge", category: "Public Schools", displaySchool: ko.observable(true), location: {lat: 34.242595, lng: -118.528069}},
+	{title: "CSU Los Angeles", name: "California State University, Los Angeles", category: "Public Schools", displaySchool: ko.observable(true), location: {lat: 34.068191, lng: -118.169043}},
+	{title: "Cal Poly Pomona", name: "California State Polytechnic University, Pomona", category: "Public Schools", displaySchool: ko.observable(true), location: {lat: 34.056528, lng: -117.821529}},
+	{title: "Occidental College", name: "Occidental College", category: "Private Schools", displaySchool: ko.observable(true), location: {lat: 34.127362, lng: -118.210504}},
+	{title: "Loyola Marymount University", name: "Loyola Marymount University", category: "Private Schools", displaySchool: ko.observable(true), location: {lat: 33.969818, lng: -118.418497}}
+	
+];
 
-	var map;
-	var markers = ko.observableArray([]);
+var map;
+var markers = ko.observableArray([]);
 // Initializes Map
 function initMap() {
 
@@ -34,6 +34,7 @@ function initMap() {
 		var position = loc.location;
 		var name = loc.name;
 		var category = loc.category;
+		var displaySchool = loc.displaySchool;
 
 		var marker = new google.maps.Marker({
 			map: map,
@@ -41,6 +42,7 @@ function initMap() {
 			title: title,
 			name: name,
 			category: category,
+			displaySchool: displaySchool,
 			animation: google.maps.Animation.DROP,
 			icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|2098d1",
 			id: 1
@@ -158,7 +160,6 @@ var ViewModel = function() {
 		google.maps.event.trigger(selected, "click");
 	};
 
-
 	this.categories = ko.observableArray(["All Schools", "Public Schools", "Private Schools"]);
 	this.selectedCategory = ko.observable();
 	// Filters the list items/map markers
@@ -170,22 +171,15 @@ var ViewModel = function() {
 
 			if(selected === "All Schools") {
 				markers()[i].setVisible(true);
+				markers()[i].displaySchool(true);
 			} else if(markers()[i].category === selected) {
 				markers()[i].setVisible(true);
+				markers()[i].displaySchool(true);
+
 			} else {
 				markers()[i].setVisible(false);
-			}
-		}
+				markers()[i].displaySchool(false);
 
-		var listItem = document.getElementsByClassName("list-item");
-		// Fliters List Items
-		for(var j = 0; j < listItem.length; j++) {
-			if(selected === "All Schools") {
-				listItem[j].style.display = "inline";
-			} else if(listItem[j].value === selected) {
-				listItem[j].style.display = "inline";
-			} else {
-				listItem[j].style.display = "none";
 			}
 		}
 

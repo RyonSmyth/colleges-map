@@ -28,7 +28,7 @@
                 </form>
             </div>
             <ul id="college-names" data-bind="foreach: markers">
-                <li><button class="list-item" data-bind="text: title,value: category, click: $parent.markerClick"></button></li>
+                <li data-bind="if: displaySchool"><button class="list-item" data-bind="text: title,value: category, click: $parent.markerClick"></button></li>
             </ul>
         </div>
 
