@@ -94,6 +94,11 @@ function initMap() {
 	map.fitBounds(bounds);
 }
 
+// Displays alert if Google Map API fails
+function mapErrorHandling() {
+	window.alert("Failed to load Google Map");
+}
+
 // Uses Wikipedia API to get an extract on each college
 var collegeExtract;
 var sentences;
@@ -127,11 +132,7 @@ function getWiki(name) {
     });
 	return def.promise();
 
-
 }
-
-
-
 
 
 var ViewModel = function() {
@@ -193,6 +194,8 @@ var ViewModel = function() {
 };
 
 ko.applyBindings(new ViewModel());
+
+
 
 
 
