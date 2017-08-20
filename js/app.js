@@ -28,12 +28,12 @@ function initMap() {
 	var bounds = new google.maps.LatLngBounds();
 
 	// Turns each locations object into a Marker and adds it to the Markers array
-	for(var i = 0; i < locations.length; i++) {
+	locations.forEach(function(loc) {
 
-		var title = locations[i].title;
-		var position = locations[i].location;
-		var name = locations[i].name;
-		var category = locations[i].category;
+		var title = loc.title;
+		var position = loc.location;
+		var name = loc.name;
+		var category = loc.category;
 
 		var marker = new google.maps.Marker({
 			map: map,
@@ -59,7 +59,7 @@ function initMap() {
 
 
 
-	}
+	});
 	// Creates an InfoWindow
 	function populateInfoWindow(marker, infoWindow) {
 
