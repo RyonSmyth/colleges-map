@@ -45,7 +45,7 @@ function initMap() {
 			icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|2098d1",
 			id: 1
 			
-		})
+		});
 
 		// Pushes Marker to Markers Array
 		markers.push(marker);
@@ -80,7 +80,7 @@ function initMap() {
 	function toggleBounce(marker) {
 		var newMarker = marker;
 		if(prevMarker) {
-  			if (prevMarker.getAnimation() != null) {             
+  			if (prevMarker.getAnimation() !== null) {             
       			prevMarker.setAnimation(null);                               
       				newMarker.setAnimation(google.maps.Animation.BOUNCE);
       				prevMarker = newMarker;
@@ -103,7 +103,7 @@ function getWiki(name) {
 	collegeExtract = "";
 
 	var wikiRequestTimeout = setTimeout(function() {
-		collegeExtract = "Failed to load Wikipedia Extract"
+		collegeExtract = "Failed to load Wikipedia Extract";
 	}, 8000);
 
 	$.ajax( {
@@ -126,7 +126,7 @@ function getWiki(name) {
             clearTimeout(wikiRequestTimeout);
             def.resolve();
         }
-	})
+	});
 	return def.promise();
 
 
@@ -151,15 +151,15 @@ var ViewModel = function() {
 		} else {
 			list.style.display = "none";
 		}
-	}
+	};
 
 	// Causes Marker associated with List Item to trigger.
 	this.markerClick = function(selected) {
 		google.maps.event.trigger(selected, "click");
-	} 
+	};
 
 
-}
+};
 
 ko.applyBindings(new ViewModel());
 
@@ -185,14 +185,14 @@ filterSchools = function() {
 
 	var listItem = document.getElementsByClassName("list-item");
 	// Fliters List Items
-	for(var i = 0; i < listItem.length; i++) {
+	for(var j = 0; j < listItem.length; j++) {
 		if(selected === "all") {
-			listItem[i].style.display = "inline";
+			listItem[j].style.display = "inline";
 		} else if(listItem[i].value == selected) {
-			listItem[i].style.display = "inline";
+			listItem[j].style.display = "inline";
 		} else {
-			listItem[i].style.display = "none";
+			listItem[j].style.display = "none";
 		}
 	}
 
-}
+};
